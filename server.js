@@ -4,8 +4,10 @@ require("dotenv").config()
 const mongoose = require("mongoose")
 const morgan = require("morgan")
 const expressJwt = require("express-jwt")
+const path = require("path")
+const port = process.env.PORT || 9000
 
-mongoose.connect("mongodb://localhost:27017/fs-final-project", {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -17,6 +19,8 @@ mongoose.connect("mongodb://localhost:27017/fs-final-project", {
 app.use(express.json())
 
 app.use(morgan("dev"))
+
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 app.use("/api", expressJwt({ secret: process.env.SECRET, algorithms: ["HS256"] }))
 app.use("/auth", require("./routes/authRoute.js"))
@@ -32,6 +36,10 @@ app.use((err, req, res, next) => {
     return res.send({ errMessage: err.message })
 })
 
-app.listen(9000, () => {
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+})
+
+app.listen(port, () => {
     console.log("Running on Port 9000")
 })

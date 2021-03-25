@@ -2,6 +2,7 @@ const express = require("express")
 const authRoute = express.Router()
 const User = require("../models/User.js")
 const jwt = require("jsonwebtoken")
+const secret = process.env.SECRET || "lucy bbq animals computer"
 
 //Sign Up
 
@@ -21,7 +22,7 @@ authRoute.post("/signup", (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            const token = jwt.sign(savedUser.withoutPassword(), process.env.SECRET)
+            const token = jwt.sign(savedUser.withoutPassword(), secret)
             return res.status(201).send({ token, user: savedUser.withoutPassword() })
         })
     })
@@ -48,7 +49,7 @@ authRoute.post("/login", (req, res, next) => {
                 res.status(403)
                 return next(new Error("Username or password are incorrect"))
             }
-            const token = jwt.sign(user.withoutPassword(), process.env.SECRET)
+            const token = jwt.sign(user.withoutPassword(), secret)
             return res.status(200).send({ token, user: user.withoutPassword() })
         })
     })
