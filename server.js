@@ -6,6 +6,7 @@ const morgan = require("morgan")
 const expressJwt = require("express-jwt")
 const path = require("path")
 const port = process.env.PORT || 9000
+const secret = process.env.SECRET || "lucy bbq animals computer"
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -22,7 +23,7 @@ app.use(morgan("dev"))
 
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-app.use("/api", expressJwt({ secret: process.env.SECRET, algorithms: ["HS256"] }))
+app.use("/api", expressJwt({ secret: process.env.SECRET || secret, algorithms: ["HS256"] }))
 app.use("/auth", require("./routes/authRoute.js"))
 app.use("/api/user", require("./routes/userRoute.js"))
 app.use("/api/savedResults", require("./routes/savedResultsRoute.js"))
