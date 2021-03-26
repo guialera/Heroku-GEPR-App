@@ -14,7 +14,7 @@ userAxios.interceptors.request.use(config => {
 export default function AppProvider(props) {
 
     const initState = {
-        user: JSON.parse(localStorage.getItem("user") || {}),
+        user: JSON.parse(localStorage.getItem("user")) || {},
         token: localStorage.getItem("token") || ""
     }
 
