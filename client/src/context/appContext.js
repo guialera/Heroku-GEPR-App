@@ -18,12 +18,7 @@ export default function AppProvider(props) {
         token: localStorage.getItem("token") || ""
     }
 
-    const defaultUser = {
-        user: "Default User"
-    }
-
     const [user, setUser] = useState(initState)
-    const [loggedOutUser, /*setLoggedOutUser*/] = useState(defaultUser)
     const [errMessage, setErrMessage] = useState("")
     const [electionResultsYear, setElectionResultsYear] = useState([])
     const [savedResult, setSavedResult] = useState([])
@@ -76,7 +71,6 @@ export default function AppProvider(props) {
             token: ""
         })
         setSavedResult([])
-        localStorage.setItem("user", JSON.stringify(loggedOutUser))
     }
 
     function resetErrMessage() {
