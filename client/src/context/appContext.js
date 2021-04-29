@@ -23,11 +23,6 @@ export default function AppProvider(props) {
     const [electionResultsYear, setElectionResultsYear] = useState([])
     const [savedResult, setSavedResult] = useState([])
 
-    React.useEffect(() => {
-        getElectionResultsByYear(2020)
-        getSavedElectionResultsByUser()
-    }, [])
-
     function signUp(credentials) {
         axios.post("/auth/signup", credentials)
             .then(response => {

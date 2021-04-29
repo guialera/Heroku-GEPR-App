@@ -9,7 +9,7 @@ function ElectionResults(props) {
     //let initPartyWon = { demWon: false, gopWon: false }
 
     const { getElectionResultsByYear, electionResultsYear, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
-    const [results, setResults] = useState()
+    const [results, setResults] = useState([])
     const [year, setYear] = useState(2020)
     const [party, setParty] = useState("")
     const [viewStateSearch, setViewStateSearch] = useState(false)
@@ -67,11 +67,11 @@ function ElectionResults(props) {
         deleteSavedElectionResult(id)
     }
 
-    let singleStateResults = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />) : results.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
+    let singleStateResults = typeof (results) === "undefined" || results.length === 0 ? electionResultsYear.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />) : results.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
 
-    let singleStateForm = typeof (results) === "undefined" ? electionResultsYear.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />) : results.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />)
+    let singleStateForm = typeof (results) === "undefined" || results.length === 0 ? electionResultsYear.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />) : results.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />)
 
-    let filteredStates = typeof (stateSearch) === "undefined" ? console.log("Undefined") : stateSearch.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
+    let filteredStates = typeof (stateSearch) === "undefined" || stateSearch.length === 0 ? console.log("Undefined") : stateSearch.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
 
     return (
         <div>
