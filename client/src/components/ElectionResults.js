@@ -8,7 +8,7 @@ function ElectionResults(props) {
 
     //let initPartyWon = { demWon: false, gopWon: false }
 
-    const { getElectionResultsByYear, electionResultsYear, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
+    const { getElectionResultsByYear, electionResultsYear, getSavedElectionResultsByUser, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
     const [results, setResults] = useState([])
     const [year, setYear] = useState(2020)
     const [party, setParty] = useState("")
@@ -18,6 +18,7 @@ function ElectionResults(props) {
 
     React.useEffect(() => {
         getElectionResultsByYear(year)
+        getSavedElectionResultsByUser()
     }, [])
 
     electionResultsYear.sort(function (a, b) {
@@ -71,7 +72,7 @@ function ElectionResults(props) {
 
     let singleStateForm = typeof (results) === "undefined" || results.length === 0 ? electionResultsYear.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />) : results.map(each => <StateFilterForm {...each} key={each._id} stateFilter={filterResultsByState} />)
 
-    let filteredStates = typeof (stateSearch) === "undefined" || stateSearch.length === 0 ? console.log("Undefined") : stateSearch.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
+    let filteredStates = typeof (stateSearch) === "undefined" || stateSearch.length === 0 ? console.log() : stateSearch.map(each => <StateResults {...each} getId={getIdAndFindResult} getIdDelete={getIdAndDelete} key={each._id} />)
 
     return (
         <div>

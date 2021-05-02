@@ -4,9 +4,13 @@ import { AppContext } from "../context/appContext.js"
 
 function SavedResults(props) {
 
-    const { savedResult, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
+    const { savedResult, getSavedElectionResultsByUser, postSavedElectionResult, deleteSavedElectionResult } = useContext(AppContext)
 
     //console.log(savedResult)
+
+    React.useEffect(() => {
+        getSavedElectionResultsByUser()
+    }, [])
 
     savedResult.sort(function (a, b) {
         return a.state.localeCompare(b.state)

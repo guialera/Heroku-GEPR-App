@@ -116,6 +116,7 @@ export default function AppProvider(props) {
                 logout,
                 resetErrMessage,
                 getElectionResultsByYear,
+                getSavedElectionResultsByUser,
                 postSavedElectionResult,
                 deleteSavedElectionResult,
             }}>
